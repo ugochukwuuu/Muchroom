@@ -1,0 +1,8 @@
+node_modules/
+.npm-cache/
+.next/
+.data/
+.env*
+!.env.example
+*.tsbuildinfo
+next-env.d.ts
