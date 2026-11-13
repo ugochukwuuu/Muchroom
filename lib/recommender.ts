@@ -15,10 +15,14 @@ export type Need = {
 };
 
 const categoryTerms: [Category, RegExp][] = [
+  ['Power Stations', /\b(power[ -]+stations?|solar generators?|backup power)\b/i],
+  ['Power Banks', /\b(power[ -]*banks?|battery packs?)\b/i],
   ['Laptops', /\b(laptops?|notebooks?|macbooks?|thinkpads?|latitude|elitebook)\b/i],
   ['Projectors', /\bprojectors?\b/i],
   ['Audio', /\b(audio|speakers?|earbuds?|headphones?|soundbars?)\b/i],
   ['Accessories', /\b(accessor(?:y|ies)|mice|mouse|keyboards?|chargers?)\b/i],
+  ['Phones & Tablets', /\b(phones?|smartphones?|iphones?|tablets?|ipads?)\b/i],
+  ['Monitors', /\bmonitors?\b/i],
 ];
 
 const useTerms: [string, RegExp][] = [

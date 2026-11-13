@@ -13,7 +13,9 @@ const prompt = [
   'Leave unknown fields empty. Do not guess RAM, storage, model, condition, price, stock, or SKU.',
   'Use one Key: Value line per clearly visible specification. Leave variant name empty unless the photo identifies the configuration.',
   'Suggest up to three obvious uses as comma-separated tags from Coding, Study, Office, Design, Gaming, Entertainment, Presentations, Travel. Avoid claims about suitability for demanding tasks without evidence.',
-  'Write a short factual description in British English. The category must be Laptops, Projectors, Audio, Accessories, or empty.',
+  'Write a short factual description in British English.',
+  `Use one of these categories or leave the category empty: ${categories.join(', ')}.`,
+  'Classify portable backup power units with AC outlets as Power Stations and handheld USB battery packs as Power Banks.',
 ].join(' ');
 
 export async function scanProductPhoto(file: File, format: keyof typeof photoFormats) {

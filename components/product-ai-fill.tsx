@@ -91,7 +91,7 @@ export function ProductAiFill({ enabled, canAttachPhoto, savedPhotos }: { enable
     body.set('photo', file);
     try {
       const response = await fetch('/api/admin/product-scan', { method: 'POST', body });
-      const data = await response.json() as { suggestions?: unknown; error?: string };
+      const data = await response.json() as { suggestions?: unknown; sku?: string; error?: string };
       if (!response.ok) throw new Error(data.error ?? 'Could not scan the photo.');
       const suggestions = cleanSuggestions(data.suggestions);
       if (!Object.keys(suggestions).length) {
@@ -99,7 +99,10 @@ export function ProductAiFill({ enabled, canAttachPhoto, savedPhotos }: { enable
         return;
       }
       undoSuggestions();
-      for (const [name, suggestion] of Object.entries(suggestions)) {
+      const entries = Object.entries(suggestions);
+      const sku = form.elements.namedItem('sku');
+      if (sku instanceof HTMLInputElement && !sku.value.trim() && data.sku) entries.push(['sku', data.sku]);
+      for (const [name, suggestion] of entries) {
         const field = form.elements.namedItem(name);
         if (field instanceof HTMLInputElement || field instanceof HTMLTextAreaElement || field instanceof HTMLSelectElement) {
           previous.current.set(field, { before: field.value, suggestion });

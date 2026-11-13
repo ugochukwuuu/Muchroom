@@ -1,5 +1,5 @@
 export const maxProductPhotos = 3;
-export const categories = ['Laptops', 'Projectors', 'Audio', 'Accessories'] as const;
+export const categories = ['Laptops', 'Projectors', 'Audio', 'Power Stations', 'Power Banks', 'Phones & Tablets', 'Monitors', 'Accessories'] as const;
 export type Category = typeof categories[number];
 
 export type Variant = {

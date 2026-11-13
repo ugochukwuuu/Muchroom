@@ -1,8 +1,17 @@
 import Link from 'next/link';
-import { ArrowUpRight, Headphones, Laptop, Mouse, Projector } from 'lucide-react';
-import { money, type Variant } from '../lib/types';
+import { ArrowUpRight, BatteryCharging, Headphones, Laptop, Monitor, Mouse, Plug, Projector, Smartphone, type LucideIcon } from 'lucide-react';
+import { money, type Category, type Variant } from '../lib/types';
 
-export const categoryIcons = { Laptops: Laptop, Projectors: Projector, Audio: Headphones, Accessories: Mouse };
+export const categoryIcons: Record<Category, LucideIcon> = {
+  Laptops: Laptop,
+  Projectors: Projector,
+  Audio: Headphones,
+  'Power Stations': Plug,
+  'Power Banks': BatteryCharging,
+  'Phones & Tablets': Smartphone,
+  Monitors: Monitor,
+  Accessories: Mouse,
+};
 
 export function ProductPhoto({ variant, source = variant.images[0], position }: { variant: Variant; source?: string; position?: number }) {
   const Icon = categoryIcons[variant.category] ?? Laptop;

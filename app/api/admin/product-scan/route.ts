@@ -1,3 +1,4 @@
+import { randomBytes } from 'node:crypto';
 import { isStaff } from '../../../../lib/auth';
 import { identifyPhoto } from '../../../../lib/cloudinary';
 import { geminiEnabled, scanProductPhoto } from '../../../../lib/gemini';
@@ -18,7 +19,13 @@ export async function POST(request: Request) {
   const format = await identifyPhoto(file);
   if (!format) return error('Use a JPEG, PNG or WebP photo.', 415);
   try {
-    return Response.json({ suggestions: await scanProductPhoto(file, format) });
+    const suggestions = await scanProductPhoto(file, format);
+    const productCode = suggestions.name?.toUpperCase().replace(/[^A-Z0-9]+/g, '-')
+      .slice(0, 32).replace(/^-|-$/g, '') || 'PRODUCT';
+    const sku = Object.keys(suggestions).length
+      ? `MR-${productCode}-${randomBytes(6).toString('hex').toUpperCase()}`
+      : undefined;
+    return Response.json({ suggestions, sku });
   } catch (cause) {
     console.error('Gemini product scan failed', cause instanceof Error ? cause.message : 'Unknown error');
     return error('Gemini couldn’t read the photo. Try again or enter the details manually.', 502);
